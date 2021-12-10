@@ -7,6 +7,7 @@ RUN pip install \
     flake8 \
     jinja2 \
     mutmut \
+    pandas \
     pydantic \
     pylint \
     pytest \
