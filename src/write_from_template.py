@@ -23,8 +23,9 @@ class Match_Round(BaseModel):
     round: str
 
 
-path_1 = "tests/data/bets_39_2021_16.csv"
-path_2 = "tests/data/predictions_39_2021_16.csv"
+league_season_round = "140_2021_17"
+path_1 = f"tests/data/bets_{league_season_round}.csv"
+path_2 = f"tests/data/predictions_{league_season_round}.csv"
 bets = pd.read_csv(path_1)
 predicionts = pd.read_csv(path_2)
 matches = bets.join(predicionts.set_index("id_match"), on="id_match")
