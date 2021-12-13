@@ -28,12 +28,15 @@ def index():
 def hello():
     conn = requests.get("https://rj2d6a.deta.dev")
     res = conn.json()
+    to_render = res["response"]
     to_render_with_color = add_color(to_render)
-    return 'Hello, World'
+    return render_template('index.html', matches=to_render_with_color)
+
 
 @app.route('/user/<username>')
 def profile(username):
     return f'{username}\'s profile'
 
 @app.route('/<league>')
-@app.route('/<league>')
+def league(league):
+    return render_template(f"{league}.html")
