@@ -24,9 +24,9 @@ app = Flask(__name__)
 def index():
     return 'Index Page'
 
-@app.route('/hello')
-def hello():
-    conn = requests.get("https://rj2d6a.deta.dev")
+@app.route('/<league_season_round>')
+def probability_and_bets(league_season_round):
+    conn = requests.get(f"https://rj2d6a.deta.dev/{league_season_round}")
     res = conn.json()
     to_render = res["response"]
     to_render_with_color = add_color(to_render)
