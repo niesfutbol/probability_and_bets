@@ -22,7 +22,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return 'Index Page'
+    return render_template('choose_league.html')
 
 @app.route('/<league_season_round>')
 def probability_and_bets(league_season_round):
@@ -40,7 +40,3 @@ def probability_and_bets_by_country(country):
     to_render = res["response"]
     to_render_with_color = add_color(to_render)
     return render_template('index.html', matches=to_render_with_color)
-
-@app.route('/<league>')
-def league(league):
-    return render_template(f"{league}.html")
