@@ -15,5 +15,5 @@ RUN pip install \
     pytest-mock \
     rope \
     typer
-RUN curl -fsSL https://get.deta.dev/cli.sh | sh
+RUN curl -fsSL https://deta.space/assets/space-cli.sh | sh
 CMD make
