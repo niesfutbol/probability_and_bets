@@ -9,6 +9,7 @@ jobs:
       - name: Deta Space Deployment Github Action
         uses: neobrains/space-deployment-github-action@v0.5
         with:
+          project_directory: "nepomios"
           access_token: ${{ secrets.DETA_ACCESS_TOKEN }}
           project_id: ${{ secrets.PROJECT_ID }}
           space_push: true
