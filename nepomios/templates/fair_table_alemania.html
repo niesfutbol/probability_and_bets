@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    /* Create two equal columns that floats next to each other */
+    .column {
+      float: left;
+      width: 50%;
+      margin: auto;
+      padding: 10px;
+      height: 50vw;
+    }
+    
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    
+    /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+    @media screen and (max-width: 600px) {
+      .column {
+        width: 100%;
+      padding: 5px;
+      height: 100vw;
+      }
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+      padding: 10px;
+    }
+    }
+    </style>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.js"></script>
+        <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"></script>
+        <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.2.min.js"></script>
+<script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.2.min.js"></script>
+        <script src="https://cdn.bokeh.org/bokeh/release/bokeh-gl-2.4.2.min.js"></script>
+        <script src="https://cdn.bokeh.org/bokeh/release/bokeh-mathjax-2.4.2.min.js"></script>
+	</head>
+	<body>
+		<div class="container-lg"><div class="separator" style="clear: both;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiRD2UAhD3lE5_EeSre0-q_tV7rk2bTUPpDheJiO6McI5YZllTTlXurSDRUHlbFlPsSDttiRUBB6JST46xfcJcOTPA1R3w2RkHttrlSRBN3W_rhkegp9UEozrNicj4kdGrcEf8CubfNLjwAubk4jZb1w_4deGT9x0h7zofbvZqLx039oIZu5CY7QRG4nw/s1024/augsburgo.jpeg" style="display: block; padding: 1em 0; text-align: center; "><img alt="" border="0" width="320" data-original-height="1024" data-original-width="1024" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiRD2UAhD3lE5_EeSre0-q_tV7rk2bTUPpDheJiO6McI5YZllTTlXurSDRUHlbFlPsSDttiRUBB6JST46xfcJcOTPA1R3w2RkHttrlSRBN3W_rhkegp9UEozrNicj4kdGrcEf8CubfNLjwAubk4jZb1w_4deGT9x0h7zofbvZqLx039oIZu5CY7QRG4nw/s320/augsburgo.jpeg"/></a></div>
+        <p>
+          Hoy hablaremos de la Bundesliga. Veremos la xTabla (<a href="https://www.nies.futbol/2023/05/justa-tabla-justa.html">o tabla de la justicia</a>) y te diremos quién quedará campeón y quién descenderá. La Bundesliga es la única liga, de las cinco grandes europeas, que aun no se define.
+        </p>
+		<p>
+        Como ya vimos, la xTabla considera la calidad de las oportunidades creadas y concedidas para estimar
+        qué equipo jugó mejor. Los xP de cada equipo ofrecen una perspectiva
+        más objetiva sobre el desempeño real del equipo. Si bien los resultados pueden ser influenciados
+        por la suerte y otros factores imprevistos, el xP nos permite evaluar si un equipo está alcanzando o
+        superando las expectativas generadas por su rendimiento en el campo.
+			</p>
+      <p>
+        En la figura de abajo podemos ver los puntos obtenidos y los esperados de los equipos de la
+        Bundesliga. Vemos que los tres primeros lugares están en las dos tablas. La diferencia está en el orden
+        entre ellos. En la real, los lugares son Dortmund, Bayern y Leipzig. En al xTabla tenemos al Bayern, Leipzig y Dortmund.
+        La tabla fue justa. 
+        </p>
+      <p>
+        Los equipos que están en la zona de descenso son: Hertha, Schalke y Bochum. En la xTabla
+        están el Bochum, Augsburg y Shalke. Parece que Hertha no "merecería" descender. Por otro lado, Augsburg deberá
+        mejorar la próxima temporada, no vaya a ser que la Tabla cobre las cuentas pendientes.
+      </p>
+		</div>
+    <div class="row">
+      <div class="column">
+	<canvas id="myChart3" width="49" height="49"></canvas>	
+		</div>
+      <div class="column">
+	<canvas id="myChart4" width="49" height="49"></canvas>	
+		</div>
+		</div>
+			<p>
+      En la última jornada se definirá toda la liga. Para que el Bayern quede campeón tiene que ganar (con una probabilidad del 
+      0.54) y que el Dortmund empate (0.14) o pierda (0.18). Con cualquier otra combinación de resultados el Dortmund será el campeón.
+      Con lo anterior la probabilidad de que quede campeón el Dortumnd es 0.83 y 0.17 de que quede campeón el Bayern. Ya veremos
+      el sábado en la mañana que piensan los jugadores de sus clases de probabilidad. Mucha suerte a todos los equipos ☘️.
+			</p>
+  
+	</body>
+	<script>
+  const logo_nies = new Image(75, 50);
+  logo_nies.src = "https://raw.githubusercontent.com/nepito/calculator-trs/develop/tests/data/logo_nies.png";
+  const logo_league = new Image(50, 50);
+  logo_league.src = "https://media-3.api-sports.io/football/leagues/78.png";
+  
+    const point_157 = new Image(25, 25);
+    point_157.src = "https://media.api-sports.io/football/teams/157.png";
+  
+    const point_173 = new Image(25, 25);
+    point_173.src = "https://media.api-sports.io/football/teams/173.png";
+  
+    const point_165 = new Image(25, 25);
+    point_165.src = "https://media.api-sports.io/football/teams/165.png";
+  
+    const point_168 = new Image(25, 25);
+    point_168.src = "https://media.api-sports.io/football/teams/168.png";
+  
+    const point_172 = new Image(25, 25);
+    point_172.src = "https://media.api-sports.io/football/teams/172.png";
+  
+    const point_169 = new Image(25, 25);
+    point_169.src = "https://media.api-sports.io/football/teams/169.png";
+  
+    const point_192 = new Image(25, 25);
+    point_192.src = "https://media.api-sports.io/football/teams/192.png";
+  
+    const point_164 = new Image(25, 25);
+    point_164.src = "https://media.api-sports.io/football/teams/164.png";
+  
+    const point_160 = new Image(25, 25);
+    point_160.src = "https://media.api-sports.io/football/teams/160.png";
+  
+    const point_182 = new Image(25, 25);
+    point_182.src = "https://media.api-sports.io/football/teams/182.png";
+  
+    const point_167 = new Image(25, 25);
+    point_167.src = "https://media.api-sports.io/football/teams/167.png";
+  
+    const point_161 = new Image(25, 25);
+    point_161.src = "https://media.api-sports.io/football/teams/161.png";
+  
+    const point_162 = new Image(25, 25);
+    point_162.src = "https://media.api-sports.io/football/teams/162.png";
+  
+    const point_163 = new Image(25, 25);
+    point_163.src = "https://media.api-sports.io/football/teams/163.png";
+  
+    const point_174 = new Image(25, 25);
+    point_174.src = "https://media.api-sports.io/football/teams/174.png";
+  
+    const point_159 = new Image(25, 25);
+    point_159.src = "https://media.api-sports.io/football/teams/159.png";
+  
+    const point_170 = new Image(25, 25);
+    point_170.src = "https://media.api-sports.io/football/teams/170.png";
+  
+    const point_176 = new Image(25, 25);
+    point_176.src = "https://media.api-sports.io/football/teams/176.png";
+  
+		var ctx = document.getElementById("myChart3").getContext("2d")
+		var ctx4 = document.getElementById("myChart4").getContext("2d")
+		const data = {
+  datasets: [
+    {
+    label: 'xTable',
+    data: [
+  
+      {
+        x: 1.83166703814487,
+        y: 60.87
+      },
+  
+      {
+        x: -0.3998883516483611,
+        y: 55.51
+      },
+  
+      {
+        x: 1.219060978184161,
+        y: 55.5
+      },
+  
+      {
+        x: -0.35029465912254465,
+        y: 48.14
+      },
+  
+      {
+        x: 1.8095103156319987,
+        y: 47.53
+      },
+  
+      {
+        x: 0.7800920230630464,
+        y: 47.42
+      },
+  
+      {
+        x: -0.3338550520516006,
+        y: 46.86
+      },
+  
+      {
+        x: 0.4262866902594442,
+        y: 46.71
+      },
+  
+      {
+        x: 0.2882137175688386,
+        y: 44.34
+      },
+  
+      {
+        x: 2.3938947090088485,
+        y: 43.8
+      },
+  
+      {
+        x: 0.7143101317137508,
+        y: 43.23
+      },
+  
+      {
+        x: 1.5852481209223384,
+        y: 41.74
+      },
+  
+      {
+        x: 0.49839560801554794,
+        y: 41.59
+      },
+  
+      {
+        x: 0.20140487114826078,
+        y: 41.34
+      },
+  
+      {
+        x: 0.38102799667712395,
+        y: 40.99
+      },
+  
+      {
+        x: -0.7602984746790342,
+        y: 40.87
+      },
+  
+      {
+        x: 0.4828149117946139,
+        y: 35.62
+      },
+  
+      {
+        x: 1.5508202193851104,
+        y: 32.37
+      },
+  
+  {x: -1.2602984746790342, y:34.37}
+  ]
+  }]
+};
+		const data4 = {
+  datasets: [
+  {
+    label: 'Table',
+    data: [
+  
+      {
+        x: 1.83166703814487,
+        y: 68
+      },
+  
+      {
+        x: -0.3998883516483611,
+        y: 63
+      },
+  
+      {
+        x: 1.219060978184161,
+        y: 70
+      },
+  
+      {
+        x: -0.35029465912254465,
+        y: 50
+      },
+  
+      {
+        x: 1.8095103156319987,
+        y: 32
+      },
+  
+      {
+        x: 0.7800920230630464,
+        y: 47
+      },
+  
+      {
+        x: -0.3338550520516006,
+        y: 42
+      },
+  
+      {
+        x: 0.4262866902594442,
+        y: 45
+      },
+  
+      {
+        x: 0.2882137175688386,
+        y: 59
+      },
+  
+      {
+        x: 2.3938947090088485,
+        y: 59
+      },
+  
+      {
+        x: 0.7143101317137508,
+        y: 35
+      },
+  
+      {
+        x: 1.5852481209223384,
+        y: 49
+      },
+  
+      {
+        x: 0.49839560801554794,
+        y: 36
+      },
+  
+      {
+        x: 0.20140487114826078,
+        y: 40
+      },
+  
+      {
+        x: 0.38102799667712395,
+        y: 31
+      },
+  
+      {
+        x: -0.7602984746790342,
+        y: 26
+      },
+  
+      {
+        x: 0.4828149117946139,
+        y: 34
+      },
+  
+      {
+        x: 1.5508202193851104,
+        y: 32
+      },
+  
+  {x: -1.2602984746790342, y:15}
+    ],
+    pointHoverBackgroundColor: '#fff',
+    pointHoverBorderColor: 'rgb(255, 255, 0)'
+  }]
+};
+		var myChart = new Chart(ctx,
+		{
+  type: 'scatter',
+  legend: {display: false},
+  data: data4,
+  options: {
+    
+  plugins: {legend: {display: false}, title: {
+        display: true,
+        text: 'Tabla: Puntos obtenidos'
+      },
+      tooltip: {
+        enabled: false // <-- this option disables tooltips
+      },
+        hover: {mode: null}
+    },
+    scales:{
+    x: {display: false, min: -1.9602984746790342, max:3.5},
+    y: {
+      title: {
+        display: true,
+        text: 'Puntos obtenidos'
+      }
+    }},
+    elements: {
+      point: {
+        pointStyle:[
+  
+  point_157,
+  
+  point_173,
+  
+  point_165,
+  
+  point_168,
+  
+  point_172,
+  
+  point_169,
+  
+  point_192,
+  
+  point_164,
+  
+  point_160,
+  
+  point_182,
+  
+  point_167,
+  
+  point_161,
+  
+  point_162,
+  
+  point_163,
+  
+  point_174,
+  
+  point_159,
+  
+  point_170,
+  
+  point_176,
+  
+          logo_nies
+      ]
+      },
+      line: {
+        borderWidth: 3
+      }
+    }
+  },
+}
+		)
+
+		var myChart = new Chart(ctx4,
+		{
+  type: 'scatter',
+  data: data,
+  options: {
+  plugins: {legend: {display: false}, title: {
+        display: true,
+        text: 'xTabla: Puntos esperados (xP)'
+      },
+      tooltip: {
+        enabled: false // <-- this option disables tooltips
+      },
+        hover: {mode: null}
+    },
+    scales:{
+    x: {display: false, min: -1.5602984746790343, max:3.5},
+    y: {
+      title: {
+        display: true,
+        text: 'Puntos esperados (xP)'
+      },
+      min: 30.369999999999997
+    }},
+    elements: {
+      point: {
+        pointStyle:[
+  
+  point_157,
+  
+  point_173,
+  
+  point_165,
+  
+  point_168,
+  
+  point_172,
+  
+  point_169,
+  
+  point_192,
+  
+  point_164,
+  
+  point_160,
+  
+  point_182,
+  
+  point_167,
+  
+  point_161,
+  
+  point_162,
+  
+  point_163,
+  
+  point_174,
+  
+  point_159,
+  
+  point_170,
+  
+  point_176,
+  
+          logo_league
+        ]
+      },
+      line: {
+        borderWidth: 3
+      }
+    }
+  },
+}
+		)
+		
+	</script>
+</html>
