@@ -37,8 +37,8 @@ def probability_and_bets(league_season_round):
 
 @app.route("/liga/<country>")
 def probability_and_bets_by_country(country):
-    conn = requests.get(f"https://rj2d6a.deta.dev/liga/{country}")
-    res = conn.json()
-    to_render = res["response"]
-    to_render_with_color = add_color(to_render)
-    return render_template("index.html", matches=to_render_with_color)
+    #conn = requests.get(f"https://rj2d6a.deta.dev/liga/{country}")
+    #res = conn.json()
+    #to_render = res["response"]
+    #to_render_with_color = add_color(to_render)
+    return render_template(f"fair_table_{country}.html")
