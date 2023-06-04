@@ -1,550 +1,97 @@
-<html>
-	<head>
-    <meta content="width=device-width, initial-scale=1" name="viewport"></meta>
-    <style>
-    * {
-      box-sizing: border-box;
-    }
-    
-    /* Create two equal columns that floats next to each other */
-    .column {
-      float: left;
-      width: 50%;
-      margin: auto;
-      padding: 10px;
-      height: 50vw;
-    }
-    
-    /* Clear floats after the columns */
-    .row:after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-    
-    /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
-    @media screen and (max-width: 600px) {
-      .column {
-        width: 100%;
-      padding: 5px;
-      height: 100vw;
-      }
-    .row:after {
-      content: "";
-      display: table;
-      clear: both;
-      padding: 10px;
-    }
-    }
-    </style>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.js"></script>
+<!DOCTYPE html><div class="separator" style="clear: both;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhnsj1zki-aml72XGW1tbE1U_BxvBlD2K7fc48t4Fz_lcG2h5LzZRpBSo_YvGy1T_bmEzWHfKNIf1dG6G4pR0tp6zRU1--XaDw8FxB5hVpqr78nN7VDyo_HqK0uTd1LVCOocZeRjiyK8DVj06Lz-_3z34lE3uTFsoD-vQzd-gZItnmAox_9NWOEIGWqdg/s1024/ppda_and_build-up_disruption_painting_by_picasso_like_Guernica_3.png.png" style="display: block; padding: 1em 0; text-align: center; "><img alt="" border="0" width="320" data-original-height="1024" data-original-width="1024" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhnsj1zki-aml72XGW1tbE1U_BxvBlD2K7fc48t4Fz_lcG2h5LzZRpBSo_YvGy1T_bmEzWHfKNIf1dG6G4pR0tp6zRU1--XaDw8FxB5hVpqr78nN7VDyo_HqK0uTd1LVCOocZeRjiyK8DVj06Lz-_3z34lE3uTFsoD-vQzd-gZItnmAox_9NWOEIGWqdg/s320/ppda_and_build-up_disruption_painting_by_picasso_like_Guernica_3.png.png"/></a></div>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>nies</title>
+        <link rel="icon" href = "https://raw.githubusercontent.com/nepito/bukeh_example/feature/template/data/nies.png" type="image/icon type">
         <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"></script>
         <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.2.min.js"></script>
-<script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.2.min.js"></script>
+        <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.2.min.js"></script>
         <script src="https://cdn.bokeh.org/bokeh/release/bokeh-gl-2.4.2.min.js"></script>
         <script src="https://cdn.bokeh.org/bokeh/release/bokeh-mathjax-2.4.2.min.js"></script>
-	</head>
-	<body>
-		<div class="container-lg"><div class="separator" style="clear: both;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhb2tZfIAAoHIm_k-1pwbPbuPLcfkxJqyvgTjAb24jVsiHaVdTIut5lA43cPMhtfqDPxwBSIn-KjaUvzTmUXkCfz4tAGUIFs1HGtpuwQC6oejW3CIHa61HeW076QbiULLPeWmmzDh52Xl3WQ_bEcVP4-4YF5TIK4_2NQoPF0lnhs3C4YbKhZm6U-pCLTQ/s1024/WhatsApp%20Image%202023-05-13%20at%208.45.13%20PM.jpeg" style="display: block; padding: 1em 0; text-align: center;"><img alt="" border="0" data-original-height="1024" data-original-width="1024" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhb2tZfIAAoHIm_k-1pwbPbuPLcfkxJqyvgTjAb24jVsiHaVdTIut5lA43cPMhtfqDPxwBSIn-KjaUvzTmUXkCfz4tAGUIFs1HGtpuwQC6oejW3CIHa61HeW076QbiULLPeWmmzDh52Xl3WQ_bEcVP4-4YF5TIK4_2NQoPF0lnhs3C4YbKhZm6U-pCLTQ/s320/WhatsApp%20Image%202023-05-13%20at%208.45.13%20PM.jpeg" width="320" /></a></div>
-			<p>
-        El objetivo de <a href="https://www.nies.futbol/">nies.futbol</a> es analizar el rendimiento
-        de los equipos y los jugadores de una manera precisa. Es por eso que hoy hablaremos de el
-        Expected Goal (xG) y los Expected Points (xP), dos métricas revolucionarias en el análisis
-        futbolístico.
-			</p>
-			<p>
-        Con el xG estimamos la probabilidad de que un disparo termine en gol. Para  calcular el xG
-        considerando factores como la ubicación, el ángulo y la distancia. Por otro lado, el xP
-        evalúa cuántos puntos debería haber obtenido un equipo en función de su rendimiento real.
-        Estas métricas nos permiten adentrarnos en la ciencia del fútbol y evaluar el rendimiento de
-        manera más objetiva.
-			</p>
-			<p>
-        El Expected Goal (xG) es una herramienta clave para analizar la calidad de las oportunidades
-        de gol generadas por un equipo o un jugador. Cada disparo recibe un valor numérico entre 0 y
-        1. Cuando el xG es 0 representa una probabilidad muy baja de gol y si el xG es 1 existe una
-        probabilidad muy alta de gol. El xG nos brinda una visión más profunda sobre la calidad de
-        las oportunidades de gol y permite una evaluación más precisa del rendimiento ofensivo de un
-        equipo o jugador.
-			</p>
-			<p>
-      Por su parte, los Expected Points (xP) aprovechan el poder del xG para estimar los puntos que
-      un equipo debería haber obtenido en función de su rendimiento en el juego. Al tener en cuenta
-      la calidad de las oportunidades creadas y concedidas, el xP ofrece una perspectiva más
-      objetiva sobre el desempeño real de un equipo. Si bien los resultados pueden ser influenciados
-      por la suerte y otros factores imprevistos, el xP nos permite evaluar si un equipo está
-      alcanzando o superando las expectativas generadas por su rendimiento en el campo.
-			</p>
-      <p>
-        En la figura de bajo podemos ver los puntos obtenidos y los esperados de los equipos de la
-        Ligue 1. Vemos que el PSG tiene muchos más puntos de los esperados. Vemos que Lille es el
-        equipo que "debería" de estar lidereando el torneo. En la parte baja, notamos que el Ajaccio
-        y Nantes no merecen estar en la zona de descenso.
-      </p>
-		</div>
-    <div class="row">
-      <div class="column">
-	<canvas height="49" id="myChart3" width="49"></canvas>	
-		</div>
-      <div class="column">
-	<canvas height="49" id="myChart4" width="49"></canvas>	
-		</div>
-		</div>
-			<p>
-      El Expected Goal (xG) y los Expected Points (xP) son herramientas precisas con las que
-      evaluamos el rendimiento de los equipos y los jugadores. Estas métricas nos permiten
-      adentrarnos en el análisis de las oportunidades de gol y los puntos esperados. Al comprender
-      la calidad de las oportunidades generadas y el rendimiento real de un equipo, podemos obtener
-      una imagen más completa y objetiva del juego. Transformamos el fútbol en un rompecabezas más
-      claro y emocionante cuando utilizamos el poder del xG y el xP para descifrar sus secretos.
-			</p>
-  
-	</body>
-	<script>
-  const logo_nies = new Image(75, 50);
-  logo_nies.src = "https://raw.githubusercontent.com/nepito/calculator-trs/develop/tests/data/logo_nies.png";
-  const logo_league = new Image(50, 50);
-  logo_league.src = "https://media-3.api-sports.io/football/leagues/61.png";
-  
-    const point_79 = new Image(25, 25);
-    point_79.src = "https://media.api-sports.io/football/teams/79.png";
-  
-    const point_116 = new Image(25, 25);
-    point_116.src = "https://media.api-sports.io/football/teams/116.png";
-  
-    const point_85 = new Image(25, 25);
-    point_85.src = "https://media.api-sports.io/football/teams/85.png";
-  
-    const point_81 = new Image(25, 25);
-    point_81.src = "https://media.api-sports.io/football/teams/81.png";
-  
-    const point_94 = new Image(25, 25);
-    point_94.src = "https://media.api-sports.io/football/teams/94.png";
-  
-    const point_93 = new Image(25, 25);
-    point_93.src = "https://media.api-sports.io/football/teams/93.png";
-  
-    const point_84 = new Image(25, 25);
-    point_84.src = "https://media.api-sports.io/football/teams/84.png";
-  
-    const point_80 = new Image(25, 25);
-    point_80.src = "https://media.api-sports.io/football/teams/80.png";
-  
-    const point_91 = new Image(25, 25);
-    point_91.src = "https://media.api-sports.io/football/teams/91.png";
-  
-    const point_108 = new Image(25, 25);
-    point_108.src = "https://media.api-sports.io/football/teams/108.png";
-  
-    const point_95 = new Image(25, 25);
-    point_95.src = "https://media.api-sports.io/football/teams/95.png";
-  
-    const point_83 = new Image(25, 25);
-    point_83.src = "https://media.api-sports.io/football/teams/83.png";
-  
-    const point_96 = new Image(25, 25);
-    point_96.src = "https://media.api-sports.io/football/teams/96.png";
-  
-    const point_106 = new Image(25, 25);
-    point_106.src = "https://media.api-sports.io/football/teams/106.png";
-  
-    const point_98 = new Image(25, 25);
-    point_98.src = "https://media.api-sports.io/football/teams/98.png";
-  
-    const point_99 = new Image(25, 25);
-    point_99.src = "https://media.api-sports.io/football/teams/99.png";
-  
-    const point_82 = new Image(25, 25);
-    point_82.src = "https://media.api-sports.io/football/teams/82.png";
-  
-    const point_97 = new Image(25, 25);
-    point_97.src = "https://media.api-sports.io/football/teams/97.png";
-  
-    const point_77 = new Image(25, 25);
-    point_77.src = "https://media.api-sports.io/football/teams/77.png";
-  
-    const point_110 = new Image(25, 25);
-    point_110.src = "https://media.api-sports.io/football/teams/110.png";
-  
-		var ctx = document.getElementById("myChart3").getContext("2d")
-		var ctx4 = document.getElementById("myChart4").getContext("2d")
-		const data = {
-  datasets: [
-    {
-    label: 'xTable',
-    data: [
-  
-      {
-        x: -0.37279228957850385,
-        y: 61.66
-      },
-  
-      {
-        x: -0.6759591953540021,
-        y: 59.01
-      },
-  
-      {
-        x: 1.7376959088415291,
-        y: 54.97
-      },
-  
-      {
-        x: 2.007268802321042,
-        y: 54.9
-      },
-  
-      {
-        x: 1.881463363499752,
-        y: 53.14
-      },
-  
-      {
-        x: 0.8101657983420726,
-        y: 52.8
-      },
-  
-      {
-        x: 2.4384485065479455,
-        y: 51.82
-      },
-  
-      {
-        x: 1.7602034988776682,
-        y: 48.96
-      },
-  
-      {
-        x: 1.1020297701781177,
-        y: 48.18
-      },
-  
-      {
-        x: 0.16026369784492855,
-        y: 44.32
-      },
-  
-      {
-        x: -1.4042142055468037,
-        y: 44.2
-      },
-  
-      {
-        x: -0.069484252783518,
-        y: 43.13
-      },
-  
-      {
-        x: 2.622849367506955,
-        y: 42.31
-      },
-  
-      {
-        x: 1.921987345771776,
-        y: 41.44
-      },
-  
-      {
-        x: -0.6968794248716896,
-        y: 41.05
-      },
-  
-      {
-        x: 0.029565127953195658,
-        y: 40.7
-      },
-  
-      {
-        x: -0.17435304421715925,
-        y: 40.22
-      },
-  
-      {
-        x: 0.7109766057715601,
-        y: 40.04
-      },
-  
-      {
-        x: 2.499224569892025,
-        y: 37.95
-      },
-  
-      {
-        x: 0.6038593182260386,
-        y: 35.17
-      },
-  
-  {x: -1.9042142055468037, y:37.17}
-  ]
-  }]
-};
-		const data4 = {
-  datasets: [
-  {
-    label: 'Table',
-    data: [
-  
-      {
-        x: -0.37279228957850385,
-        y: 59
-      },
-  
-      {
-        x: -0.6759591953540021,
-        y: 75
-      },
-  
-      {
-        x: 1.7376959088415291,
-        y: 78
-      },
-  
-      {
-        x: 2.007268802321042,
-        y: 70
-      },
-  
-      {
-        x: 1.881463363499752,
-        y: 56
-      },
-  
-      {
-        x: 0.8101657983420726,
-        y: 50
-      },
-  
-      {
-        x: 2.4384485065479455,
-        y: 51
-      },
-  
-      {
-        x: 1.7602034988776682,
-        y: 56
-      },
-  
-      {
-        x: 1.1020297701781177,
-        y: 64
-      },
-  
-      {
-        x: 0.16026369784492855,
-        y: 34
-      },
-  
-      {
-        x: -1.4042142055468037,
-        y: 35
-      },
-  
-      {
-        x: -0.069484252783518,
-        y: 32
-      },
-  
-      {
-        x: 2.622849367506955,
-        y: 42
-      },
-  
-      {
-        x: 1.921987345771776,
-        y: 35
-      },
-  
-      {
-        x: -0.6968794248716896,
-        y: 23
-      },
-  
-      {
-        x: 0.029565127953195658,
-        y: 50
-      },
-  
-      {
-        x: -0.17435304421715925,
-        y: 43
-      },
-  
-      {
-        x: 0.7109766057715601,
-        y: 51
-      },
-  
-      {
-        x: 2.499224569892025,
-        y: 14
-      },
-  
-      {
-        x: 0.6038593182260386,
-        y: 22
-      },
-  
-  {x: -1.9042142055468037, y:15}
-    ],
-    pointHoverBackgroundColor: '#fff',
-    pointHoverBorderColor: 'rgb(255, 255, 0)'
-  }]
-};
-		var myChart = new Chart(ctx,
-		{
-  type: 'scatter',
-  legend: {display: false},
-  data: data4,
-  options: {
-    
-  plugins: {legend: {display: false}, title: {
-        display: true,
-        text: 'Tabla: Puntos obtenidos'
-      },
-      tooltip: {
-        enabled: false // <-- this option disables tooltips
-      },
-        hover: {mode: null}
-    },
-    scales:{
-    x: {display: false, min: -2.6042142055468034, max:3.5},
-    y: {
-      title: {
-        display: true,
-        text: 'Puntos obtenidos'
-      }
-    }},
-    elements: {
-      point: {
-        pointStyle:[
-  
-  point_79,
-  
-  point_116,
-  
-  point_85,
-  
-  point_81,
-  
-  point_94,
-  
-  point_93,
-  
-  point_84,
-  
-  point_80,
-  
-  point_91,
-  
-  point_108,
-  
-  point_95,
-  
-  point_83,
-  
-  point_96,
-  
-  point_106,
-  
-  point_98,
-  
-  point_99,
-  
-  point_82,
-  
-  point_97,
-  
-  point_77,
-  
-  point_110,
-  
-          logo_nies
-      ]
-      },
-      line: {
-        borderWidth: 3
-      }
-    }
-  },
-}
-		)
+    </head>
+    <body>
+        <div class="container">
+            <p class="lead">
+            Hoy veremos el valor de los índices de presión para la liga inglesa.
+            Como vimos en los <a href="https://niesoccer.blogspot.com/2023/04/indices-de-presion-ppda-y-build-up.html">Índices de presión: PPDA y Build-Up Disruption
+            </a> el <strong>PPDA</strong> mide la cantidad de pases que permite el equipo defensor
+            antes de que lleve a cabo una acción defensiva. También vimos que la
+            <strong>BDP</strong> mide el efecto destructivo de la presión en la tasa de
+            pases completos del equipo rival.
+            </p>
+            <p>En la figura de abajo presentamos la relación que existe entre los dos índices. En el
+            eje horizontal tenemos la <strong>BDP</strong> y en el eje <em>y</em> el
+            <strong>PPDA</strong>. Los puntos representan el desempeño de cada uno de los equipos de
+            la Premier League.</p>
+        </div>
+        <div class="container">
+        <figure class="figure">
+		    <script type="text/javascript">
+        (function() {
+  const fn = function() {
+    Bokeh.safely(function() {
+      (function(root) {
+        function embed_document(root) {
+        const docs_json = '{"25547da4-ee0f-4f14-b43d-fee6dbeefb73":{"defs":[],"roots":{"references":[{"attributes":{},"id":"1010","type":"LinearScale"},{"attributes":{"fill_color":{"field":"color"},"hatch_color":{"field":"color"},"line_color":{"field":"color"},"size":{"value":8},"x":{"field":"build_up_disruption"},"y":{"field":"ppda"}},"id":"1037","type":"Circle"},{"attributes":{},"id":"1025","type":"SaveTool"},{"attributes":{"data":{"x":{"__ndarray__":"z61xBnmD9D/cm6m6mnQCQM/lhFIyJxJAgh2Tk+WS9T86Sy0IxtTqP3hKls2TVu4/60twidpd67+70iy/hggCQGc/3fb1TQbAIBwUneIHor8VpxEXIiPnPzL4XBJU0vc/MGbpZWKzyz8QmVKJBPcIwHHZuHDScOu/Kyn+itOt87980rFEVX/ovxHdrsm6qvu/seTreMQZ9r8RpIC/iusHwA==","dtype":"float64","order":"little","shape":[20]},"y":[10.615845621243825,9.79139859988174,7.9963602035921735,10.562537188259617,10.972726352782313,10.88456077358535,12.335234012064431,9.833852260637025,13.890153771010128,11.675579850537371,11.065589552944335,10.449520819600886,11.473153506498878,14.157676712900713,12.337096732617955,12.636692538461642,12.26310307114495,13.038317225687228,12.75845069817349,14.052610758235478]},"selected":{"id":"1063"},"selection_policy":{"id":"1062"}},"id":"1045","type":"ColumnDataSource"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"field":"color"},"hatch_alpha":{"value":0.1},"hatch_color":{"field":"color"},"line_alpha":{"value":0.1},"line_color":{"field":"color"},"size":{"value":8},"x":{"field":"build_up_disruption"},"y":{"field":"ppda"}},"id":"1038","type":"Circle"},{"attributes":{},"id":"1019","type":"BasicTicker"},{"attributes":{},"id":"1023","type":"WheelZoomTool"},{"attributes":{"coordinates":null,"data_source":{"id":"1002"},"glyph":{"id":"1042"},"group":null,"hover_glyph":null,"view":{"id":"1044"}},"id":"1043","type":"GlyphRenderer"},{"attributes":{},"id":"1022","type":"PanTool"},{"attributes":{},"id":"1055","type":"BasicTickFormatter"},{"attributes":{"axis":{"id":"1014"},"coordinates":null,"group":null,"ticker":null},"id":"1017","type":"Grid"},{"attributes":{"source":{"id":"1002"}},"id":"1041","type":"CDSView"},{"attributes":{},"id":"1027","type":"HelpTool"},{"attributes":{},"id":"1056","type":"AllLabels"},{"attributes":{"axis":{"id":"1018"},"coordinates":null,"dimension":1,"group":null,"ticker":null},"id":"1021","type":"Grid"},{"attributes":{"axis_label":"Build-up disruption","coordinates":null,"formatter":{"id":"1058"},"group":null,"major_label_policy":{"id":"1059"},"ticker":{"id":"1015"}},"id":"1014","type":"LinearAxis"},{"attributes":{},"id":"1062","type":"UnionRenderers"},{"attributes":{},"id":"1058","type":"BasicTickFormatter"},{"attributes":{"axis_label":"PPDA","coordinates":null,"formatter":{"id":"1055"},"group":null,"major_label_policy":{"id":"1056"},"ticker":{"id":"1019"}},"id":"1018","type":"LinearAxis"},{"attributes":{"coordinates":null,"group":null,"text":"PPDA vs BDP de la Premier League en el a\\u00f1o 2022-2023"},"id":"1004","type":"Title"},{"attributes":{},"id":"1063","type":"Selection"},{"attributes":{"tools":[{"id":"1022"},{"id":"1023"},{"id":"1024"},{"id":"1025"},{"id":"1026"},{"id":"1027"},{"id":"1051"}]},"id":"1029","type":"Toolbar"},{"attributes":{},"id":"1059","type":"AllLabels"},{"attributes":{"source":{"id":"1002"}},"id":"1044","type":"CDSView"},{"attributes":{"coordinates":null,"data_source":{"id":"1045"},"glyph":{"id":"1046"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1048"},"nonselection_glyph":{"id":"1047"},"view":{"id":"1050"}},"id":"1049","type":"GlyphRenderer"},{"attributes":{},"id":"1008","type":"DataRange1d"},{"attributes":{"source":{"id":"1045"}},"id":"1050","type":"CDSView"},{"attributes":{},"id":"1012","type":"LinearScale"},{"attributes":{"callback":null,"renderers":[{"id":"1040"}],"tooltips":[["Equipo","@{team}"],["Premier","@{premier}"]]},"id":"1051","type":"HoverTool"},{"attributes":{"line_alpha":0.2,"x":{"field":"x"},"y":{"field":"y"}},"id":"1048","type":"Line"},{"attributes":{},"id":"1006","type":"DataRange1d"},{"attributes":{},"id":"1060","type":"UnionRenderers"},{"attributes":{"line_alpha":0.1,"x":{"field":"x"},"y":{"field":"y"}},"id":"1047","type":"Line"},{"attributes":{"x":{"field":"x"},"y":{"field":"y"}},"id":"1046","type":"Line"},{"attributes":{"fill_alpha":{"value":0.2},"fill_color":{"field":"color"},"hatch_alpha":{"value":0.2},"hatch_color":{"field":"color"},"line_alpha":{"value":0.2},"line_color":{"field":"color"},"size":{"value":8},"x":{"field":"build_up_disruption"},"y":{"field":"ppda"}},"id":"1039","type":"Circle"},{"attributes":{},"id":"1061","type":"Selection"},{"attributes":{},"id":"1015","type":"BasicTicker"},{"attributes":{"anchor":"bottom_left","h":{"value":1.8},"url":{"value":"https://raw.githubusercontent.com/nepito/calculator-trs/develop/tests/data/logo_nies.png"},"w":{"value":1},"x":{"value":-3.2},"y":{"value":6}},"id":"1042","type":"ImageURL"},{"attributes":{"coordinates":null,"data_source":{"id":"1002"},"glyph":{"id":"1037"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"1039"},"nonselection_glyph":{"id":"1038"},"view":{"id":"1041"}},"id":"1040","type":"GlyphRenderer"},{"attributes":{"aspect_ratio":2,"below":[{"id":"1014"}],"center":[{"id":"1017"},{"id":"1021"}],"left":[{"id":"1018"}],"renderers":[{"id":"1040"},{"id":"1043"},{"id":"1049"}],"sizing_mode":"scale_both","title":{"id":"1004"},"toolbar":{"id":"1029"},"toolbar_location":null,"x_range":{"id":"1006"},"x_scale":{"id":"1010"},"y_range":{"id":"1008"},"y_scale":{"id":"1012"}},"id":"1003","subtype":"Figure","type":"Plot"},{"attributes":{"bottom_units":"screen","coordinates":null,"fill_alpha":0.5,"fill_color":"lightgrey","group":null,"left_units":"screen","level":"overlay","line_alpha":1.0,"line_color":"black","line_dash":[4,4],"line_width":2,"right_units":"screen","syncable":false,"top_units":"screen"},"id":"1028","type":"BoxAnnotation"},{"attributes":{},"id":"1026","type":"ResetTool"},{"attributes":{"data":{"build_up_disruption":{"__ndarray__":"z61xBnmD9D/cm6m6mnQCQM/lhFIyJxJAgh2Tk+WS9T86Sy0IxtTqP3hKls2TVu4/60twidpd67+70iy/hggCQGc/3fb1TQbAIBwUneIHor8VpxEXIiPnPzL4XBJU0vc/MGbpZWKzyz8QmVKJBPcIwHHZuHDScOu/Kyn+itOt87980rFEVX/ovxHdrsm6qvu/seTreMQZ9r8RpIC/iusHwA==","dtype":"float64","order":"little","shape":[20]},"color":["blue","blue","orange","orange","orange","blue","orange","orange","red","orange","red","blue","orange","blue","orange","orange","orange","orange","orange","red"],"index":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19],"ppda":{"__ndarray__":"/WLJL5bcIUB0+IkAra0iQGbsiIRx9CFAQ5tb+feAIEB8e3t7e/siQFqnTG5VlCdAhetRuB4FJ0By7rMLiE0lQMfGxsbGxi1ACvjm1cQzKEDiEN8i6tomQJOeJnQZOydA7FG4HoULJ0BQ9r4mBOUnQEKnDXTaACpAubRPYPQxKUAlw28GPoQnQO57WCGviypAMXW5/UEGLUAgOKRlfGguQA==","dtype":"float64","order":"little","shape":[20]},"premier":[2,1,6,10,7,3,17,14,18,9,20,5,11,4,13,12,8,15,16,19],"team":["Manchester City","Arsenal","Liverpool","Chelsea","Brighton","Manchester United","Leicester City","Leeds United","West Ham United","Fulham","Southampton","Newcastle United","Aston Villa","Tottenham Hotspur","Wolverhampton Wanderers","Crystal Palace","Brentford","Everton","Nottingham Forest","Bournemouth"],"team_id":[50,42,40,49,51,33,46,63,48,36,41,34,66,47,39,52,55,45,65,35],"tilt":{"__ndarray__":"XpOVCu2aUkD54QMlpWpRQPnx48ePH1FAS0tLS0uLUECqqqqqquZOQCVJkiRJkkxAV+dsmf1eS0Ce2Imd2AlIQIgc9ESj5kdAXXTRRRfdR0CKndiJndhHQPMaymsor0dAxCGWZ62ER0CKndiJnZhGQFrB8zhohkZAv4T2EtpLRUAw1w7MtQNFQGCNifRA5URAXXTRRRedQUDi4eHh4eE+QA==","dtype":"float64","order":"little","shape":[20]}},"selected":{"id":"1061"},"selection_policy":{"id":"1060"}},"id":"1002","type":"ColumnDataSource"},{"attributes":{"overlay":{"id":"1028"}},"id":"1024","type":"BoxZoomTool"}],"root_ids":["1003"]},"title":"Bokeh Application","version":"2.4.3"}}';
+        const render_items = [{"docid":"25547da4-ee0f-4f14-b43d-fee6dbeefb73","root_ids":["1003"],"roots":{"1003":"ff952ee5-0b92-4ffa-90cd-f395657e7c86"}}];
+        root.Bokeh.embed.embed_items(docs_json, render_items);
+        }
+        if (root.Bokeh !== undefined) {
+          embed_document(root);
+        } else {
+          let attempts = 0;
+          const timer = setInterval(function(root) {
+            if (root.Bokeh !== undefined) {
+              clearInterval(timer);
+              embed_document(root);
+            } else {
+              attempts++;
+              if (attempts > 100) {
+                clearInterval(timer);
+                console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+              }
+            }
+          }, 10, root)
+        }
+      })(window);
+    });
+  };
+  if (document.readyState != "loading") fn();
+  else document.addEventListener("DOMContentLoaded", fn);
+})();
+    </script>
+ <div class="bk-root" id="ff952ee5-0b92-4ffa-90cd-f395657e7c86" data-root-id="1003"></div>
+    <figcaption class="figure-caption text-end"><strong>Figura 1.</strong> Pases permitidos por
+    acción defensiva (PPDA) contra interrupción en la fase de construcción (BDP). Los puntos de color azul
+    son aquellos que están en posiciones europeas. Los puntos en rojo son los equipos que están en
+    la zona de descenso. El resto de los equipos están en color naranja. La línea negra corresponde a
+    la línea de tendecia de las dos variables.</figcaption>
+    </figure>
+	    </div>
+        <div>
+            <p>Podemos ver que el equipo con mejor <strong>BDP</strong>, el punto hasta la derecha,
+        es el Liverpool. El punto más a la izquierda corresponde el Tottenham y es este equipo el que tiene más
+        margen de mejora en la <strong>BDP</strong>. Que el valor sea negativo nos indica que los
+        equipos mejoran la precisión en los pases cuando juegan contra el Tottenham.</p>
+    <p>Chelsea es el equipo que permite menos pases a sus rivales, es decir tiene el menor <strong>PPDA</strong> de
+    la liga. Bournemouth es el equipo que permite más pases antes de poder recuperar el balón. Es
+    este equipo el que está en la parte superio de la figura.</p>
+<p>Los puntos en rojo representan los equipos que están en la zona de descenso. Al pasar el cursor por
+esos puntos vemos que esos equipos son West Ham, Bournemouth y Southampton, en los lugares 18, 19 y
+20, respectivamente. Los equipos en la zona de competiciones europeas corresponden a los puntos de
+color azul. Esos equipos son Newcastle, Tottenham, Mancheste United, Manchester City y Arsenal. El
+resto de los equipos están en color naranja.</p>
+<p>La línea negra muestra la relación entre los índices. La pendiente negativa
+nos indica que a mayor <strong>BDP</strong> menor es el número de pases que los equipos le permiten a sus
+rivales. Esta relación es la esperada. Cuando un equipo presiona a su rival, recupera antes el balón
+porque su rival disminuye la precisión de sus pases.</p>
+<p>Por último, notamos que el Tottenham ha alcanzado posiciones europeas sin necesidad de ser un
+equipo que presione a sus rivales. ¿Cómo podremos complementar estos índices para hablar del estilo
+de juego de un equipo? ¿El estilo <em>Heavy metal</em> de Klopp será lo que tiene al Liverpool en el
+ángulo inferior derecho de la figura de arriba? La presión de Southampton es similar a la de los
+equipos en zona de competiciones europeas. Sin embargo, están en el último lugar de la liga. ¿Será que su estilo de juego no fue el adecuado?</p></div>
 
-		var myChart = new Chart(ctx4,
-		{
-  type: 'scatter',
-  data: data,
-  options: {
-  plugins: {legend: {display: false}, title: {
-        display: true,
-        text: 'xTabla: Puntos esperados (xP)'
-      },
-      tooltip: {
-        enabled: false // <-- this option disables tooltips
-      },
-        hover: {mode: null}
-    },
-    scales:{
-    x: {display: false, min: -2.204214205546804, max:3.5},
-    y: {
-      title: {
-        display: true,
-        text: 'Puntos esperados (xP)'
-      }
-    }},
-    elements: {
-      point: {
-        pointStyle:[
-  
-  point_79,
-  
-  point_116,
-  
-  point_85,
-  
-  point_81,
-  
-  point_94,
-  
-  point_93,
-  
-  point_84,
-  
-  point_80,
-  
-  point_91,
-  
-  point_108,
-  
-  point_95,
-  
-  point_83,
-  
-  point_96,
-  
-  point_106,
-  
-  point_98,
-  
-  point_99,
-  
-  point_82,
-  
-  point_97,
-  
-  point_77,
-  
-  point_110,
-  
-          logo_league
-        ]
-      },
-      line: {
-        borderWidth: 3
-      }
-    }
-  },
-}
-		)
-		
-	</script>
+<a href="https://nepomios-1-p0256758.deta.app/">Regresa a la página principal</a>
+</body>
 </html>
