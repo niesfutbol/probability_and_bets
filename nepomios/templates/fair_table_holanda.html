@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    /* Create two equal columns that floats next to each other */
+    .column {
+      float: left;
+      width: 50%;
+      margin: auto;
+      padding: 10px;
+      height: 50vw;
+    }
+    
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    
+    /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+    @media screen and (max-width: 600px) {
+      .column {
+        width: 100%;
+      padding: 5px;
+      height: 100vw;
+      }
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+      padding: 10px;
+    }
+    }
+    </style>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.js"></script>
+        <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"></script>
+        <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.2.min.js"></script>
+<script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.2.min.js"></script>
+        <script src="https://cdn.bokeh.org/bokeh/release/bokeh-gl-2.4.2.min.js"></script>
+        <script src="https://cdn.bokeh.org/bokeh/release/bokeh-mathjax-2.4.2.min.js"></script>
+	</head>
+	<body>
+		<div class="container-lg">
+			<div class="separator" style="clear: both;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhA-3avGMVUuMz7r95qcRPrihP8GpbMLegqNu0EYDXJMaxZLiacVbwA4nxWYr1toajhTBeeAVDCxrFuv_MI5haT7Sf8e4DS31VW7EVnblwVV17LLB_04dnaVR9FVTQ8jUggHOrwgYfaQsjVKHD60HrEE_v0isgJS0eGBIreSMjU7FTlvCxIL90pg8NOeg/s1024/WhatsApp%20Image%202023-05-15%20at%207.45.38%20PM.jpeg" style="display: block; padding: 1em 0; text-align: center; "><img alt="" border="0" width="320" data-original-height="1024" data-original-width="1024" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhA-3avGMVUuMz7r95qcRPrihP8GpbMLegqNu0EYDXJMaxZLiacVbwA4nxWYr1toajhTBeeAVDCxrFuv_MI5haT7Sf8e4DS31VW7EVnblwVV17LLB_04dnaVR9FVTQ8jUggHOrwgYfaQsjVKHD60HrEE_v0isgJS0eGBIreSMjU7FTlvCxIL90pg8NOeg/s320/WhatsApp%20Image%202023-05-15%20at%207.45.38%20PM.jpeg"/></a></div>
+        <p>
+          En <a href="https://www.nies.futbol/2023/05/justa-tabla-justa.html">¡Justa
+          tabla, justa!</a> hablamos del Expected Goal (xG) y los Expected Points (xP). Ahí vimos que son herramientas
+          precisas con las que evaluamos el rendimiento de los equipos y los jugadores. Estas
+          métricas nos permiten adentrarnos en el análisis de las oportunidades de gol y los puntos
+          esperados.
+          </p>
+        <p>
+          En aquella nota les presentamos la "Tabla de la Justicia" para la Ligue 1 de
+          Francia. Hoy vemos esos cálculos para la liga holandesa. Obvio, escribimos esta nota
+          aprovechando que Santiago Giménez quedó campeón.
+          </p>
+			<p>
+        Como ya vimos, el xG estima la probabilidad de que un disparo termine en gol. Para calcular
+        el xG consideramos factores como la ubicación, el ángulo y la distancia. Tomamos en cuenta 
+        todos los disparos a portería del torneo pasado. Esto lo hacemos para cada una
+        de las ligas, así que tenemos un xG para cada liga. Al final, tenemos la
+        probabilidad de que un tiro sea gol.
+          </p>
+			<p>
+        Algunos jugadores meten más goles que el promedio. Supongamos que esto se debe a que es un goleador
+        de mucha calidad. El equipo de este jugador tendría un desempeño mejor del esperado. Esta
+        podría ser una situación. Saber por qué un equipo tiene un desempeño distinto al esperado,
+        dependerá de cada caso en particular.
+			</p>
+      <p>
+        En la figura de abajo podemos ver los puntos obtenidos y los esperados de los equipos de la
+        Eredivisie. Vemos que el Feyenoord tuvo en mejor desempaño (esperado y obtenido). La tabla
+        fue justa. El equipo AZ Alkmaar va en la tercera posición, pero su desempeño sugiere que
+        es el sexto mejor equipo. En la parte baja de la tabla de puntos obtenidos, notamos que el
+        Excelsior no está en la zona de descenso (los últimos tres lugares). Este equipo en la 
+        "Tabla de la justicia" debería de descender, está en el último lugar.
+      </p>
+      </div>
+      <div class="row">
+        <div class="column">
+          <canvas id="myChart3" width="49" height="49"></canvas>	
+        </div>
+        <div class="column">
+          <canvas id="myChart4" width="49" height="49"></canvas>	
+        </div>
+      </div>
+      <p>
+        En las siguientes notas, nos adentraremos en la interpretración de la tabla de la
+        justicia. ¿Cómo les suena xTable 😹? Solo nos queda mandar una fuerte
+        felicitación a Santiago Giménez y a todo el Feyenoord. ¡Hasta la siguiente y bonita semana!
+      </p>
+      <a href="https://nepomios-1-p0256758.deta.app/">Regresa a la página principal</a>
+	</body>
+	<script>
+  const logo_nies = new Image(75, 50);
+  logo_nies.src = "https://raw.githubusercontent.com/nepito/calculator-trs/develop/tests/data/logo_nies.png";
+  const logo_league = new Image(50, 50);
+  logo_league.src = "https://media-3.api-sports.io/football/leagues/88.png";
+  
+    const point_209 = new Image(25, 25);
+    point_209.src = "https://media.api-sports.io/football/teams/209.png";
+  
+    const point_194 = new Image(25, 25);
+    point_194.src = "https://media.api-sports.io/football/teams/194.png";
+  
+    const point_197 = new Image(25, 25);
+    point_197.src = "https://media.api-sports.io/football/teams/197.png";
+  
+    const point_415 = new Image(25, 25);
+    point_415.src = "https://media.api-sports.io/football/teams/415.png";
+  
+    const point_200 = new Image(25, 25);
+    point_200.src = "https://media.api-sports.io/football/teams/200.png";
+  
+    const point_201 = new Image(25, 25);
+    point_201.src = "https://media.api-sports.io/football/teams/201.png";
+  
+    const point_207 = new Image(25, 25);
+    point_207.src = "https://media.api-sports.io/football/teams/207.png";
+  
+    const point_210 = new Image(25, 25);
+    point_210.src = "https://media.api-sports.io/football/teams/210.png";
+  
+    const point_413 = new Image(25, 25);
+    point_413.src = "https://media.api-sports.io/football/teams/413.png";
+  
+    const point_410 = new Image(25, 25);
+    point_410.src = "https://media.api-sports.io/football/teams/410.png";
+  
+    const point_426 = new Image(25, 25);
+    point_426.src = "https://media.api-sports.io/football/teams/426.png";
+  
+    const point_205 = new Image(25, 25);
+    point_205.src = "https://media.api-sports.io/football/teams/205.png";
+  
+    const point_416 = new Image(25, 25);
+    point_416.src = "https://media.api-sports.io/football/teams/416.png";
+  
+    const point_208 = new Image(25, 25);
+    point_208.src = "https://media.api-sports.io/football/teams/208.png";
+  
+    const point_202 = new Image(25, 25);
+    point_202.src = "https://media.api-sports.io/football/teams/202.png";
+  
+    const point_417 = new Image(25, 25);
+    point_417.src = "https://media.api-sports.io/football/teams/417.png";
+  
+    const point_420 = new Image(25, 25);
+    point_420.src = "https://media.api-sports.io/football/teams/420.png";
+  
+    const point_196 = new Image(25, 25);
+    point_196.src = "https://media.api-sports.io/football/teams/196.png";
+  
+		var ctx = document.getElementById("myChart3").getContext("2d")
+		var ctx4 = document.getElementById("myChart4").getContext("2d")
+		const data = {
+  datasets: [
+    {
+    label: 'xTable',
+    data: [
+  
+      {
+        x: 1.2155700415020785,
+        y: 64.11
+      },
+  
+      {
+        x: 0.8016495038594957,
+        y: 60.49
+      },
+  
+      {
+        x: 0.8420240940499898,
+        y: 59.87
+      },
+  
+      {
+        x: 0.47786440821660403,
+        y: 56.46
+      },
+  
+      {
+        x: 1.771846102818306,
+        y: 49.21
+      },
+  
+      {
+        x: 1.7069136491098305,
+        y: 48.31
+      },
+  
+      {
+        x: -0.03889306606955878,
+        y: 45.9
+      },
+  
+      {
+        x: 1.399391471729307,
+        y: 43.87
+      },
+  
+      {
+        x: 1.3338655416434486,
+        y: 42.06
+      },
+  
+      {
+        x: 2.1125726244538914,
+        y: 40.94
+      },
+  
+      {
+        x: 0.8264721203380232,
+        y: 40.13
+      },
+  
+      {
+        x: -0.6255487205738757,
+        y: 36.56
+      },
+  
+      {
+        x: 0.48148733265857324,
+        y: 35.8
+      },
+  
+      {
+        x: 1.644471065579236,
+        y: 35.64
+      },
+  
+      {
+        x: 1.59572300240999,
+        y: 34.15
+      },
+  
+      {
+        x: 1.525590225902196,
+        y: 33.74
+      },
+  
+      {
+        x: 1.1196009900523525,
+        y: 30.73
+      },
+  
+      {
+        x: 0.3235163424597868,
+        y: 30.23
+      },
+  
+  {x: -1.1255487205738757, y:32.230000000000004}
+  ]
+  }]
+};
+		const data4 = {
+  datasets: [
+  {
+    label: 'Table',
+    data: [
+  
+      {
+        x: 1.2155700415020785,
+        y: 79
+      },
+  
+      {
+        x: 0.8016495038594957,
+        y: 63
+      },
+  
+      {
+        x: 0.8420240940499898,
+        y: 71
+      },
+  
+      {
+        x: 0.47786440821660403,
+        y: 58
+      },
+  
+      {
+        x: 1.771846102818306,
+        y: 34
+      },
+  
+      {
+        x: 1.7069136491098305,
+        y: 64
+      },
+  
+      {
+        x: -0.03889306606955878,
+        y: 51
+      },
+  
+      {
+        x: 1.399391471729307,
+        y: 42
+      },
+  
+      {
+        x: 1.3338655416434486,
+        y: 38
+      },
+  
+      {
+        x: 2.1125726244538914,
+        y: 37
+      },
+  
+      {
+        x: 0.8264721203380232,
+        y: 53
+      },
+  
+      {
+        x: -0.6255487205738757,
+        y: 35
+      },
+  
+      {
+        x: 0.48148733265857324,
+        y: 33
+      },
+  
+      {
+        x: 1.644471065579236,
+        y: 28
+      },
+  
+      {
+        x: 1.59572300240999,
+        y: 18
+      },
+  
+      {
+        x: 1.525590225902196,
+        y: 41
+      },
+  
+      {
+        x: 1.1196009900523525,
+        y: 16
+      },
+  
+      {
+        x: 0.3235163424597868,
+        y: 29
+      },
+  
+  {x: -1.1255487205738757, y:15}
+    ],
+    pointHoverBackgroundColor: '#fff',
+    pointHoverBorderColor: 'rgb(255, 255, 0)'
+  }]
+};
+		var myChart = new Chart(ctx,
+		{
+  type: 'scatter',
+  legend: {display: false},
+  data: data4,
+  options: {
+    
+  plugins: {legend: {display: false}, title: {
+        display: true,
+        text: 'Tabla: Puntos obtenidos'
+      },
+      tooltip: {
+        enabled: false // <-- this option disables tooltips
+      },
+        hover: {mode: null}
+    },
+    scales:{
+    x: {display: false, min: -1.8255487205738756, max:3.5},
+    y: {
+      title: {
+        display: true,
+        text: 'Puntos obtenidos'
+      }
+    }},
+    elements: {
+      point: {
+        pointStyle:[
+  
+  point_209,
+  
+  point_194,
+  
+  point_197,
+  
+  point_415,
+  
+  point_200,
+  
+  point_201,
+  
+  point_207,
+  
+  point_210,
+  
+  point_413,
+  
+  point_410,
+  
+  point_426,
+  
+  point_205,
+  
+  point_416,
+  
+  point_208,
+  
+  point_202,
+  
+  point_417,
+  
+  point_420,
+  
+  point_196,
+  
+          logo_nies
+      ]
+      },
+      line: {
+        borderWidth: 3
+      }
+    }
+  },
+}
+		)
+
+		var myChart = new Chart(ctx4,
+		{
+  type: 'scatter',
+  data: data,
+  options: {
+  plugins: {legend: {display: false}, title: {
+        display: true,
+        text: 'xTabla: Puntos esperados (xP)'
+      },
+      tooltip: {
+        enabled: false // <-- this option disables tooltips
+      },
+        hover: {mode: null}
+    },
+    scales:{
+    x: {display: false, min: -1.9255487205738757, max:3.5},
+    y: {
+      title: {
+        display: true,
+        text: 'Puntos esperados (xP)'
+      },
+      min: 28.23
+    }},
+    elements: {
+      point: {
+        pointStyle:[
+  
+  point_209,
+  
+  point_194,
+  
+  point_197,
+  
+  point_415,
+  
+  point_200,
+  
+  point_201,
+  
+  point_207,
+  
+  point_210,
+  
+  point_413,
+  
+  point_410,
+  
+  point_426,
+  
+  point_205,
+  
+  point_416,
+  
+  point_208,
+  
+  point_202,
+  
+  point_417,
+  
+  point_420,
+  
+  point_196,
+  
+          logo_league
+        ]
+      },
+      line: {
+        borderWidth: 3
+      }
+    }
+  },
+}
+		)
+		
+	</script>
+</html>
